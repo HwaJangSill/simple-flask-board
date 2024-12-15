@@ -88,7 +88,6 @@ def index():
     if cookie:
         connect = sqlite3.connect('test.db')
         connect.row_factory = sqlite3.Row
-        connect.execute("PRAGMA foreign_keys = ON;")
         Cursor = connect.cursor()
         selectUserInfo = f"""
             SELECT * FROM TestUser WHERE 
@@ -132,7 +131,6 @@ def login():
         loginData = request.form.to_dict() # 클라이언트에서 전송한 데이터를 딕셔너리 형태로 가져오기
         connect = sqlite3.connect('test.db')
         connect.row_factory = sqlite3.Row
-        connect.execute("PRAGMA foreign_keys = ON;")
         Cursor = connect.cursor()
         # 데이터베이스에 질의를 위한 SELECT문
         selectQuery = f"""
@@ -186,7 +184,6 @@ def join():
             );
         """
         connect = sqlite3.connect('test.db')
-        connect.execute("PRAGMA foreign_keys = ON;")
         Cursor = connect.cursor()
         Cursor.execute(insertQuery)
         connect.commit()
@@ -230,7 +227,6 @@ def postCheckList():
                 WHERE post_id={postData['delete']};
             """
             connect = sqlite3.connect('test.db')
-            connect.execute("PRAGMA foreign_keys = ON;")
             Cursor = connect.cursor()
             Cursor.execute(deleteQuery)
             connect.commit()
@@ -248,7 +244,6 @@ def postCheckList():
         );
         """
         connect = sqlite3.connect('test.db')
-        connect.execute("PRAGMA foreign_keys = ON;")
         connect.row_factory = sqlite3.Row
         Cursor = connect.cursor()
         Cursor.execute(insertQuery)
@@ -259,7 +254,6 @@ def postCheckList():
         return render_template('checkList.html', loginState=True, checkLists=checkLists)
     connect = sqlite3.connect('test.db')
     connect.row_factory = sqlite3.Row
-    connect.execute("PRAGMA foreign_keys = ON;")
     Cursor = connect.cursor()
     Cursor.execute(selectQuery)
     checkLists = Cursor.fetchall()
@@ -292,7 +286,6 @@ def search():
     print(exeQuery)
     connect = sqlite3.connect("test.db")
     connect.row_factory = sqlite3.Row
-    connect.execute("PRAGMA foreign_keys = ON;")
     Cursor = connect.cursor()
     Cursor.execute(exeQuery)
     rows = Cursor.fetchall()
@@ -359,7 +352,6 @@ def write():
                 WHERE post_id='{postData['post_id']}';
             """
             connect = sqlite3.connect("test.db")
-            connect.execute("PRAGMA foreign_keys = ON;")
             Cursor = connect.cursor()
             Cursor.execute(updateQuery)
             connect.commit()
