@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>회원가입</title>
+    <link rel="stylesheet" href="/static/header.css">
+    <link rel="stylesheet" href="/static/join.css">
+    <link rel="stylesheet" href="/static/footer.css">
+</head>
+<body>
+    {% include "header.html" %}
+    <main>
+        <h1>회원가입</h1>
+        <form action="/join/" method="POST" id="joinForm">
+            <label for="track">트랙</label>
+            <select name="track" id="track">
+                <option value="웹해킹">웹해킹</option>
+                <option value="리버싱">리버싱</option>
+                <option value="시스템">시스템</option>
+            </select>
+            <label for="plan">플랜</label>
+            <select name="plan" id="plan">
+                <option value="Survival">Survival</option>
+                <option value="Full">Full</option>
+            </select>
+            <label for="name">이름</label>
+            <input type="text" name="name" id="name" required/>
+            <label for="email">이메일</label>
+            <input type="email" name="email" id="email" required />
+            <label for="pw">패스워드</label>
+            <input type="password"  name="pw" id="pw" required />
+            <label for="doubleCheck">중복 확인</label>
+            <input type="password" id="doubleCheck" required />
+            <button type="submit">가입하기</button>
+        </form>
+    </main>
+    {% include "footer.html" %}
+    <script>
+        const joinForm = document.querySelector("#joinForm");
+        const pw = document.querySelector("#pw");
+        const doubleCheck = document.querySelector("#doubleCheck");
+        const submit = document.querySelector('button');
+        
+        // 제출 버튼에 이벤트 리스너 적용하여 패스워드 중복 검사를 할 수 있도록 구현
+        submit.addEventListener("click", (event) => {
+            event.preventDefault();
+            if(pw.value != doubleCheck.value){
+                alert("비밀번호를 다시 확인해 주세요");
+                doubleCheck.style.outline = "1px solid red";
+            } else joinForm.submit();
+        });
+    </script>
+</body>
+</html>
