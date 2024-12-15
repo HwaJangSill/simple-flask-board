@@ -192,6 +192,7 @@ def join():
             <script>
                 alert("가입이 완료되었습니다");
                 location.href='/login/';
+            </script>
         """
         return render_template_string(message) # 가입 완료 메시지와 함께 /login/ 페이지로 리다이렉트
     return render_template('join.html') # 단순히 GET 요청을 보내 해당 경로로 접근한 경우 'join.html' 전달
