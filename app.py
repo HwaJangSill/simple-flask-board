@@ -342,7 +342,29 @@ def write():
                 </script>
             """
             return render_template_string(message)
-        
+
+        # 게시글 업데이트
+        if "edit" in postData:
+            updateQuery = f"""
+                UPDATE board SET 
+                title='{postData['title']}',
+                text='{postData['text']}'
+                WHERE post_id='{postData['post_id']}';
+            """
+            connect = sqlite3.connect("test.db")
+            Cursor = connect.cursor()
+            Cursor.execute(updateQuery)
+            connect.commit()
+            connect.close()
+
+            message = """
+                <script>
+                    alert("수정 완료!");
+                    location.href='/board/';
+                </script>
+            """
+            return render_template_string(message)
+            
         # 게시글 저장 쿼리
         insertQuery = f"""
             INSERT INTO board (
